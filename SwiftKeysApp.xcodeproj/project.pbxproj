@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5DB3059E2BB5BDA000B92E6E /* Player Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB3059D2BB5BDA000B92E6E /* Player Class.swift */; };
+		6DA7D8A72BB5C49500242975 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA7D8A62BB5C49500242975 /* GameManager.swift */; };
 		6DE15CE22BB57F8400776F68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE15CE12BB57F8400776F68 /* AppDelegate.swift */; };
 		6DE15CE42BB57F8400776F68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE15CE32BB57F8400776F68 /* SceneDelegate.swift */; };
 		6DE15CE62BB57F8400776F68 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE15CE52BB57F8400776F68 /* StartViewController.swift */; };
@@ -42,7 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5DB3059D2BB5BDA000B92E6E /* Player Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Player Class.swift"; path = "SwiftKeysApp/Player Class.swift"; sourceTree = SOURCE_ROOT; };
+		5DB3059D2BB5BDA000B92E6E /* Player Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Player Class.swift"; path = "SwiftKeysApp/Model/Player Class.swift"; sourceTree = SOURCE_ROOT; };
+		6DA7D8A62BB5C49500242975 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		6DE15CDE2BB57F8400776F68 /* SwiftKeysApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftKeysApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DE15CE12BB57F8400776F68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DE15CE32BB57F8400776F68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6DA7D8A52BB5C47900242975 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5DB3059D2BB5BDA000B92E6E /* Player Class.swift */,
+				6DA7D8A62BB5C49500242975 /* GameManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6DE15CD52BB57F8400776F68 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +123,7 @@
 		6DE15CE02BB57F8400776F68 /* SwiftKeysApp */ = {
 			isa = PBXGroup;
 			children = (
+				6DA7D8A52BB5C47900242975 /* Model */,
 				CD6DE3E82BB58C28000950EA /* ViewControllers */,
 				CD6DE3E72BB58C1C000950EA /* Models */,
 				6DE15CE12BB57F8400776F68 /* AppDelegate.swift */,
@@ -144,7 +156,6 @@
 		CD6DE3E72BB58C1C000950EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5DB3059D2BB5BDA000B92E6E /* Player Class.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD6DE3EC2BB58D53000950EA /* GameViewController.swift in Sources */,
+				6DA7D8A72BB5C49500242975 /* GameManager.swift in Sources */,
 				CD6DE3EA2BB58C72000950EA /* HighscoreTableViewController.swift in Sources */,
 				6DE15CE62BB57F8400776F68 /* StartViewController.swift in Sources */,
 				6DE15CE22BB57F8400776F68 /* AppDelegate.swift in Sources */,
