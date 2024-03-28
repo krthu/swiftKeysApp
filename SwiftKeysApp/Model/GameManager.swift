@@ -20,6 +20,7 @@ class GameManger{
     private var wordToType: String?
 
     private var activePlayer: Player?
+    private var pointsPerWord = 1
 
 
     func getRandomWord() -> String?{
@@ -30,7 +31,7 @@ class GameManger{
 
     func correctSpelled(word: String) -> Bool{
         if word.lowercased() == wordToType?.lowercased() {
-            // Give player points
+            activePlayer?.increaceScore(scoreToAdd: pointsPerWord)
             return true
         }
 
@@ -42,6 +43,10 @@ class GameManger{
             return activePlayer.score
         }
         return nil
+    }
+    
+    func getActivePlayerName() -> String?{
+        return activePlayer?.name
     }
 
     func setActivePlayer(player: Player){
