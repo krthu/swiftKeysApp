@@ -19,7 +19,7 @@ class GameManger{
 
     private var wordToType: String?
 
-//    private var activePlayer: Player?
+    private var activePlayer: Player?
 
 
     func getRandomWord() -> String?{
@@ -37,13 +37,20 @@ class GameManger{
         return false
     }
 
-//    func getScore() -> Int{
-//        return points
-//    }
+    func getScore() -> Int?{
+        if let activePlayer = activePlayer{
+            return activePlayer.score
+        }
+        return nil
+    }
 
-//    func setActivePlayer{
-//
-//    }
+    func setActivePlayer(player: Player){
+        activePlayer = player
+    }
+    
+    func addScore(scoreToAdd: Int){
+        activePlayer?.increaceScore(scoreToAdd: scoreToAdd)
+    }
 
 
 
