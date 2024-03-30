@@ -22,8 +22,11 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     var resultSegueKey = "resultSegue"
     
-    var gameManager: GameManger?
+    var gameManager: GameManager?
     
+    
+    var timer : Timer?
+    var seconds = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNewGame()
@@ -41,11 +44,26 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         
         getNewWord()
         
+        
+    }
+    func countDownTimer(timer : Timer? = nil){
+        seconds -= 1
+    
+        if(seconds>=0){
+        var secondsString = String(seconds)
+            timerLabel.text = secondsString
+            print("\(secondsString)")
+        }else{
+            timer?.invalidate()
+        }
     }
     
     func getNewWord(){
         guard let gameManager = gameManager else{ return }
         wordLabel.text = gameManager.getRandomWord()
+        seconds = 5
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: countDownTimer(timer:))
+        print("newWord")
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {

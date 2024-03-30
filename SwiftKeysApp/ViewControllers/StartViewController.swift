@@ -16,7 +16,7 @@ class StartViewController: UIViewController {
     
     var highscoreSegueKey = "highscoreSegue"
     var gameSegueKey = "gameSegue"
-    var gameManager = GameManger()
+    var gameManager = GameManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()

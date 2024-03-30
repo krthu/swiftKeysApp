@@ -125,7 +125,6 @@
 			children = (
 				6DA7D8A52BB5C47900242975 /* Model */,
 				CD6DE3E82BB58C28000950EA /* ViewControllers */,
-				CD6DE3E72BB58C1C000950EA /* Models */,
 				6DE15CE12BB57F8400776F68 /* AppDelegate.swift */,
 				6DE15CE32BB57F8400776F68 /* SceneDelegate.swift */,
 				6DE15CE72BB57F8400776F68 /* Main.storyboard */,
@@ -151,13 +150,6 @@
 				6DE15D042BB57F8600776F68 /* SwiftKeysAppUITestsLaunchTests.swift */,
 			);
 			path = SwiftKeysAppUITests;
-			sourceTree = "<group>";
-		};
-		CD6DE3E72BB58C1C000950EA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		CD6DE3E82BB58C28000950EA /* ViewControllers */ = {
