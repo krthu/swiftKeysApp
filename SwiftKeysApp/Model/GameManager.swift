@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GameManger{
+class GameManager{
     private let words = [
         "boll", "hund", "katt", "bok", "hus", "näsa", "bär", "fisk", "mjölk", "axel",
         "öra", "peng", "klubb", "väska", "klocka", "hjul", "damm", "lejon", "skor", "vägg",
