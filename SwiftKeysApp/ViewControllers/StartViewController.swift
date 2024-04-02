@@ -27,6 +27,22 @@ class StartViewController: UIViewController {
         
     }
     
+    func showAlert() {
+        // Skapa en alert controller med titel och meddelande
+        let alertController = UIAlertController(title: "Ange spelarnamn", message: "Du måste ange ett namn för att kunna spela", preferredStyle: .alert)
+
+        // Skapa en åtgärd för alert kontrollern
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+     
+        }
+
+        // Lägg till åtgärden till alert kontrollern
+        alertController.addAction(okAction)
+
+        // Presentera alert kontrollern
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == gameSegueKey{
 
@@ -35,6 +51,7 @@ class StartViewController: UIViewController {
             
             let destinationVC = segue.destination as? GameViewController
             destinationVC?.gameManager = gameManager
+            
         }
     }
 
@@ -43,9 +60,14 @@ class StartViewController: UIViewController {
         let name = playerNameField.text
         
         if let name = name {
-            gameManager.setActivePlayer(player: Player(name: name, score: 0))
+            if !name.isEmpty {
+                gameManager.setActivePlayer(player: Player(name: name, score: 0))
+                performSegue(withIdentifier: gameSegueKey, sender: self)
+            }
+            else {
+                showAlert()
+            }
         }
-        
     }
     
 }
