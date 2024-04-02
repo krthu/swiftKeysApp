@@ -27,6 +27,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     var timer : Timer?
     var seconds = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNewGame()
@@ -46,25 +47,37 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         
         
     }
-    func countDownTimer(timer : Timer? = nil){
+    @objc func countDownTimer(_ timer: Timer? = nil) {
         seconds -= 1
-    
-        if(seconds>=0){
-        var secondsString = String(seconds)
-            timerLabel.text = secondsString
-            print("\(secondsString)")
-        }else{
-            timer?.invalidate()
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            if self.seconds >= 0 {
+                self.timerLabel.text = String(self.seconds)
+                self.updateProgressBar()
+            } else {
+                self.timer?.invalidate()
+                // Hantera vad som händer när tiden löper ut, exempelvis visa ett meddelande eller ladda ett nytt ord
+            }
         }
     }
-    
     func getNewWord(){
-        guard let gameManager = gameManager else{ return }
-        wordLabel.text = gameManager.getRandomWord()
-        seconds = 5
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: countDownTimer(timer:))
-        print("newWord")
-    }
+        guard let gameManager = gameManager else { return }
+                wordLabel.text = gameManager.getRandomWord()
+                seconds = 5
+                timer?.invalidate()
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownTimer), userInfo: nil, repeats: true)
+                updateProgressBar()
+            }
+
+    func updateProgressBar() {
+            let totalSeconds = 5.0
+            let progress = Float(seconds) / Float(totalSeconds)
+            DispatchQueue.main.async { [weak self] in
+                self?.progressBar.setProgress(progress, animated: true)
+            }
+        }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if let word = userInputField.text,
@@ -78,6 +91,10 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                
             }
         }
+    }
+    
+    @objc func countDownTimerWrapper() {
+        countDownTimer()
     }
     
 
