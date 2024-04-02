@@ -30,7 +30,7 @@ class HighScoreManager {
 //    }
     
     func getList() -> [Player] {
-        let sortedList = list.sorted { $0.score < $1.score }
+        let sortedList = list.sorted { $0.score > $1.score }
         return sortedList
     }
     
