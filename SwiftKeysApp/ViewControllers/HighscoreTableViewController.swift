@@ -9,38 +9,41 @@ import UIKit
 
 class HighscoreTableViewController: UITableViewController {
     
+    var highscoreManager = HighScoreManager()
     
+    var highScoreList : [Player] = []
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        highscoreManager.loadListFromUserDefaults()
+        highScoreList = highscoreManager.getList()
+        
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+                
+        return highScoreList.count
     }
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "highscoreCell", for: indexPath)
-
-        // Configure the cell...
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "highscoreCell", for: indexPath) as? HighscoreTableViewCell else {
+            fatalError("Unable to dequeue TableViewCell") }
+        
+        cell.positionLabel.text = "\(indexPath.row + 1)"
+        cell.playerName.text = highScoreList[indexPath.row].name
+        cell.playerScore.text = "\(highScoreList[indexPath.row].score)p"
+            
         return cell
+       
     }
     
 
