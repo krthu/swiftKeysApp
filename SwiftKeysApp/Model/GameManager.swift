@@ -21,17 +21,25 @@ class GameManager{
 
     private var activePlayer: Player?
     private var pointsPerWord = 1
+    private var wordsInGame: Int? = 2
+    private var wordsDone: Int = 0
+    
 
 
     func getRandomWord() -> String?{
+        
+        if wordsDone == wordsInGame {
+            return nil
+        }
         let word = words.randomElement()
         wordToType = word
+        wordsDone += 1
         return wordToType
     }
 
     func correctSpelled(word: String) -> Bool{
         if word.lowercased() == wordToType?.lowercased() {
-            activePlayer?.increaceScore(scoreToAdd: pointsPerWord)
+            activePlayer?.changeScore(with: pointsPerWord)
             return true
         }
 
@@ -54,9 +62,21 @@ class GameManager{
     }
     
     func addScore(scoreToAdd: Int){
-        activePlayer?.increaceScore(scoreToAdd: scoreToAdd)
-    }
+        activePlayer?.changeScore(with: scoreToAdd)
 
+        
+    }
+    func resetGame(){
+        activePlayer?.score = 0
+        wordsDone = 0
+    }
+    
+    
+    func getActivePlayer() -> Player?{
+        return activePlayer
+    }
+    
+ 
 
 
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Player {
+class Player: Codable {
     var name : String
     var score : Int
     
@@ -15,9 +15,11 @@ class Player {
         self.name = name
         self.score = score
     }
-    func increaceScore(scoreToAdd : Int) {
+    func changeScore(with scoreToAdd: Int) {
         score += scoreToAdd
     }
+
+    
     func toString() -> String {
         
         return "\(name) \(score)"

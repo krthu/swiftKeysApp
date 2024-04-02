@@ -29,18 +29,22 @@ class StartViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == gameSegueKey{
-            //Vi behöver nog ha en action från knappen spela för att ta användarens namn och göra en player
-            let name = playerNameField.text
-            if let name = name {
-                gameManager.setActivePlayer(player: Player(name: name, score: 0))
-            }
-            // Allt mellan det här skulle vi nog lägga i den actionen
+
             
             let destinationVC = segue.destination as? GameViewController
             destinationVC?.gameManager = gameManager
         }
     }
 
-
+    @IBAction func playButtonPressed(_ sender: UIButton) {
+        
+        let name = playerNameField.text
+        
+        if let name = name {
+            gameManager.setActivePlayer(player: Player(name: name, score: 0))
+        }
+        
+    }
+    
 }
 

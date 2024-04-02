@@ -30,9 +30,11 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gameManager?.resetGame()
         setUpNewGame()
         userInputField.becomeFirstResponder()
         userInputField.delegate = self
+        
         
         // Do any additional setup after loading the view.
     }
@@ -50,26 +52,40 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     @objc func countDownTimer(_ timer: Timer? = nil) {
         seconds -= 1
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+
             
             if self.seconds >= 0 {
                 self.timerLabel.text = String(self.seconds)
                 self.updateProgressBar()
+                
             } else {
-                self.timer?.invalidate()
+                
                 // Hantera vad som händer när tiden löper ut, exempelvis visa ett meddelande eller ladda ett nytt ord
+                gameManager?.addScore(scoreToAdd: -1)
+                if let score = gameManager?.getScore(){
+                    scoreLabel.text = String(score)
+                }
+                
+                getNewWord()
+                
             }
-        }
+        
     }
     func getNewWord(){
         guard let gameManager = gameManager else { return }
-                wordLabel.text = gameManager.getRandomWord()
-                seconds = 5
-                timer?.invalidate()
-                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownTimer), userInfo: nil, repeats: true)
-                updateProgressBar()
-            }
+            let newWord = gameManager.getRandomWord()
+        if newWord != nil{
+            wordLabel.text = newWord
+            seconds = 5
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDownTimer), userInfo: nil, repeats: true)
+            updateProgressBar()
+        } else{
+            self.timer?.invalidate()
+            performSegue(withIdentifier: resultSegueKey, sender: self)
+        }
+
+    }
 
     func updateProgressBar() {
             let totalSeconds = 5.0
@@ -96,6 +112,22 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     @objc func countDownTimerWrapper() {
         countDownTimer()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == resultSegueKey{
+            let destinationVC = segue.destination as? ResultViewController
+            destinationVC?.player = gameManager?.getActivePlayer()
+                
+            
+        }
+    }
+    
+    @IBAction func unwindResultsViewController(_ segue: UIStoryboardSegue) {
+        gameManager?.resetGame()
+        setUpNewGame()
+    }
+    
+    
     
 
     /*
