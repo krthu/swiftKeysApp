@@ -39,9 +39,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         userInputField.becomeFirstResponder()
         userInputField.delegate = self
         
-        
-        
-        // Do any additional setup after loading the view.
     }
     
     func setUpNewGame(){
@@ -51,7 +48,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         userInputField.text = ""
         
         getNewWord()
-        
         
     }
 
@@ -75,6 +71,13 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     }
     func updateProgressBar() {
         let progress = Float(seconds) / Float(secondsPerWord)
+        if progress >= 0.6 {
+                    progressBar.tintColor = .green
+                } else if progress < 0.6 && progress >= 0.3{
+                    progressBar.tintColor = .yellow
+                } else{
+                    progressBar.tintColor = .red
+                }
         DispatchQueue.main.async { [weak self] in
             self?.progressBar.setProgress(progress, animated: false)
         }
@@ -115,13 +118,13 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         let diff = gameManager?.getDifficulty()
         
         if diff == 2 {
-            secondsPerWord = 3
+            secondsPerWord = 5
         }
         else if diff == 1 {
-            secondsPerWord = 4
+            secondsPerWord = 7
         }
         else {
-            secondsPerWord = 5
+            secondsPerWord = 10
         }
     }
     
