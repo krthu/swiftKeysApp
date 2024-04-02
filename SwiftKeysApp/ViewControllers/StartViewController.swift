@@ -30,6 +30,8 @@ class StartViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == gameSegueKey{
 
+            let difficulty = levelSelector.selectedSegmentIndex
+            gameManager.setDifficulty(level: difficulty)
             
             let destinationVC = segue.destination as? GameViewController
             destinationVC?.gameManager = gameManager

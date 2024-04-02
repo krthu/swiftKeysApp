@@ -23,7 +23,7 @@ class GameManager{
     private var pointsPerWord = 1
     private var wordsInGame: Int? = 2
     private var wordsDone: Int = 0
-    
+    private var difficulty: Int = 0
 
 
     func getRandomWord() -> String?{
@@ -76,6 +76,12 @@ class GameManager{
         return activePlayer
     }
     
+    func setDifficulty(level: Int){
+        difficulty = level
+    }
+    func getDifficulty() -> Int {
+        return difficulty
+    }
  
 
 
