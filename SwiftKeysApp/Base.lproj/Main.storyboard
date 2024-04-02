@@ -168,7 +168,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Spela igen!"/>
                                 <connections>
-                                    <action selector="playAgainButtonPressed:" destination="u6S-7f-Uhv" eventType="touchUpInside" id="NfR-2E-ftx"/>
+                                    <segue destination="F1X-JB-QNj" kind="unwind" unwindAction="unwindResultsViewController:" id="vKI-t4-jtE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="29p" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2S-kW-mFO">
@@ -203,7 +203,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="95U-F5-g4n">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="LIq-qX-fYc"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="LIq-qX-fYc">
+                            <connections>
+                                <action selector="donePressed:" destination="u6S-7f-Uhv" id="MN1-JP-itM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="finalScoreLabel" destination="n2S-kW-mFO" id="Ota-NZ-LfM"/>
@@ -211,6 +215,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xWD-4i-9Y5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="F1X-JB-QNj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2709.1603053435115" y="210.56338028169014"/>
         </scene>

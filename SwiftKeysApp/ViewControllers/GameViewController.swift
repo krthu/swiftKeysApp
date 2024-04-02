@@ -30,9 +30,11 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gameManager?.resetGame()
         setUpNewGame()
         userInputField.becomeFirstResponder()
         userInputField.delegate = self
+        
         
         // Do any additional setup after loading the view.
     }
@@ -118,6 +120,11 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 
             
         }
+    }
+    
+    @IBAction func unwindResultsViewController(_ segue: UIStoryboardSegue) {
+        gameManager?.resetGame()
+        setUpNewGame()
     }
     
     

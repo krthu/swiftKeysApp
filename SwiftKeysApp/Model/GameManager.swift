@@ -66,6 +66,11 @@ class GameManager{
 
         
     }
+    func resetGame(){
+        activePlayer?.score = 0
+        wordsDone = 0
+    }
+    
     
     func getActivePlayer() -> Player?{
         return activePlayer
