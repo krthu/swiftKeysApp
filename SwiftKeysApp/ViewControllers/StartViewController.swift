@@ -27,6 +27,7 @@ class StartViewController: UIViewController {
         
         
     }
+
     func addDoneButtonOnKeyboard(to textField: UITextField) {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()

@@ -61,6 +61,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             self.seconds = 0 // Säkerställ att seconds inte går under 0
+            userInputField.text = "" //empty input field
             gameManager?.addOrDecreaseScore(isRight: false)
             if let score = gameManager?.getScore(){
                 scoreLabel.text = String(score)
@@ -69,6 +70,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             getNewWord()
         }
     }
+    
+    
     func updateProgressBar() {
         let progress = Float(seconds) / Float(secondsPerWord)
         if progress >= 0.6 {
@@ -150,8 +153,11 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
+    override func viewWillDisappear(_ animated: Bool) {
+            timer?.invalidate()
+            timer = nil
+            super.viewWillDisappear(animated)
+    }
     /*
      // MARK: - Navigation
      

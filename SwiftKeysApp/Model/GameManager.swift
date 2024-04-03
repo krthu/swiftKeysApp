@@ -103,6 +103,7 @@ class GameManager{
     func resetGame(){
         activePlayer?.score = 0
         wordsDone = 0
+        wordToType = nil
     }
     
     
