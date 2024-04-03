@@ -61,7 +61,9 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             self.seconds = 0 // Säkerställ att seconds inte går under 0
+            userInputField.text = "" //empty input field
             gameManager?.addOrDecreaseScore(isRight: false)
+            changeBackground(toThisColor: .red)
             if let score = gameManager?.getScore(){
                 scoreLabel.text = String(score)
             }
@@ -69,6 +71,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             getNewWord()
         }
     }
+    
+    
     func updateProgressBar() {
         let progress = Float(seconds) / Float(secondsPerWord)
         if progress >= 0.6 {
@@ -108,11 +112,33 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 if let score = gameManager.getScore(){
                     scoreLabel.text = "\(score)"
                 }
+                changeBackground(toThisColor: .green)
                 userInputField.text = ""
                 getNewWord()
                 
             }
         }
+    }
+    
+    func changeBackground(toThisColor : UIColor){
+
+        // Sätt den initiala bakgrundsfärgen
+        self.view.backgroundColor = .white
+
+        // Använd UIView.animate för att skapa en animation
+        UIView.animate(withDuration: 0.05, animations: {
+            // Ändra bakgrundsfärgen till en ny färg
+            self.view.backgroundColor = toThisColor
+        }) { (finished) in
+            // Efter att animationen är klar, vänta 1 sekund innan du ändrar tillbaka färgen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                UIView.animate(withDuration: 0.05) {
+                    // Ändra tillbaka till den ursprungliga färgen eller till en annan färg
+                    self.view.backgroundColor = .white
+                }
+            }
+        }
+
     }
     func setTimer() {
         let diff = gameManager?.getDifficulty()
@@ -150,8 +176,11 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
+    override func viewWillDisappear(_ animated: Bool) {
+            timer?.invalidate()
+            timer = nil
+            super.viewWillDisappear(animated)
+    }
     /*
      // MARK: - Navigation
      
