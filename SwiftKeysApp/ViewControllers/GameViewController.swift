@@ -20,6 +20,10 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userInputField: UITextField!
     
+    @IBOutlet weak var animatedLabelToPoints: UILabel!
+    
+    @IBOutlet weak var animateLosingPoints: UILabel!
+    
     var resultSegueKey = "resultSegue"
     
     var gameManager: GameManager?
@@ -68,6 +72,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 scoreLabel.text = String(score)
             }
             
+            animateLosingScore()
+            
             getNewWord()
         }
     }
@@ -93,6 +99,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         let newWord = gameManager.getRandomWord()
         if newWord != nil{
             wordLabel.text = newWord
+            
             seconds = secondsPerWord
             timer?.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(countDownTimer), userInfo: nil, repeats: true)
@@ -110,15 +117,108 @@ class GameViewController: UIViewController, UITextFieldDelegate {
            let gameManager = gameManager{
             if gameManager.correctSpelled(word: word){
                 if let score = gameManager.getScore(){
+                    
                     scoreLabel.text = "\(score)"
                 }
                 changeBackground(toThisColor: .green)
                 userInputField.text = ""
-                getNewWord()
+                animatedLabelToPoints.text = wordLabel.text
+                
+                animateWordIntoScore()
+                
+                let delayInSeconds = 0.5
+
+                // Skapa en fördröjning och kör kodblocket efter den angivna tiden
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                    self.getNewWord()
+                }
+                
                 
             }
         }
     }
+
+    func animateWordIntoScore(){
+        
+        guard let wordLabel = animatedLabelToPoints, let scoreLabel = scoreLabel else { return }
+
+        // Ta reda på slutpositionen baserat på poänglabelns position
+        let endPosition = scoreLabel.center
+
+        // Spara ursprungsläget för att återställa det senare
+        let startPosition = wordLabel.center
+        
+        // Sätt alpha till 0.0 för att börja med
+        wordLabel.alpha = 0.0
+          
+        // Animationskedja
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [], animations: {
+            
+            
+            // Första keyframe: Förstora ordet och börja visa det gradvis
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
+                wordLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                wordLabel.alpha = 0.2 // Börja göra ordet synligt
+            }
+            
+
+            // Andra keyframe: Förflytta och minska ordet, öka alpha till 1
+            UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.7) {
+                
+                wordLabel.center = endPosition
+                wordLabel.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                wordLabel.alpha = 1.0 // Gör ordet helt synligt mot slutet av animationen
+            }
+
+        }) { _ in
+            // Återställ ordets position och storlek för nästa gång det används
+            wordLabel.center = startPosition
+            wordLabel.transform = .identity
+            wordLabel.alpha = 0 // Antagligen vill du sätta detta till 1.0 om ordet ska vara synligt efter återställningen
+        }
+    }
+    
+    func animateLosingScore(){
+        
+        guard let wordLabel = animateLosingPoints, let scoreLabel = scoreLabel else { return }
+
+        // Ta reda på slutpositionen baserat på poänglabelns position
+        var endPosition = wordLabel.center
+        endPosition.y += 200
+
+        // Spara ursprungsläget för att återställa det senare
+        let startPosition = scoreLabel.center
+        
+        // Sätt alpha till 0.0 för att börja med
+        wordLabel.alpha = 0.0
+          
+        // Animationskedja
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [], animations: {
+            
+            
+            // Första keyframe: Förstora ordet och börja visa det gradvis
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
+                wordLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                wordLabel.alpha = 0.2 // Börja göra ordet synligt
+            }
+            
+
+            // Andra keyframe: Förflytta och minska ordet, öka alpha till 1
+            UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.7) {
+                
+                wordLabel.center = endPosition
+                wordLabel.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                wordLabel.alpha = 1.0 // Gör ordet helt synligt mot slutet av animationen
+            }
+
+        }) { _ in
+            // Återställ ordets position och storlek för nästa gång det används
+            wordLabel.center = startPosition
+            wordLabel.transform = .identity
+            wordLabel.alpha = 0 // Antagligen vill du sätta detta till 1.0 om ordet ska vara synligt efter återställningen
+        }
+    }
+
     
     func changeBackground(toThisColor : UIColor){
 
@@ -146,14 +246,17 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         if diff == 2 {
             secondsPerWord = 5
             gameManager?.setPointsPerWord(to: 3)
+            animateLosingPoints.text = "-3"
         }
         else if diff == 1 {
             secondsPerWord = 7
             gameManager?.setPointsPerWord(to: 2)
+            animateLosingPoints.text = "-2"
         }
         else {
             secondsPerWord = 10
             gameManager?.setPointsPerWord(to: 1)
+            animateLosingPoints.text = "-1"
         }
     }
     
