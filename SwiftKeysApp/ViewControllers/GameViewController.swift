@@ -61,7 +61,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             self.seconds = 0 // Säkerställ att seconds inte går under 0
-            gameManager?.addScore(scoreToAdd: -1)
+            gameManager?.addOrDecreaseScore(isRight: false)
             if let score = gameManager?.getScore(){
                 scoreLabel.text = String(score)
             }
@@ -119,12 +119,15 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         
         if diff == 2 {
             secondsPerWord = 5
+            gameManager?.setPointsPerWord(to: 3)
         }
         else if diff == 1 {
             secondsPerWord = 7
+            gameManager?.setPointsPerWord(to: 2)
         }
         else {
             secondsPerWord = 10
+            gameManager?.setPointsPerWord(to: 1)
         }
     }
     
