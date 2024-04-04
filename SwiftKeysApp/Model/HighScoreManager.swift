@@ -17,18 +17,6 @@ class HighScoreManager {
         list.append(playerToAdd)
     }
     
-//    func getList() -> [Player]{
-//        list.sorted { $0,$1 in
-//            if $0.score < $1.score {
-//                return true
-//            } else{
-//                return false
-//            }
-//        }
-//        
-//        
-//    }
-    
     func getList() -> [Player] {
         let sortedList = list.sorted { $0.score > $1.score }
         return sortedList

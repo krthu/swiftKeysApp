@@ -20,12 +20,8 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //Add a done button to playerName textfield
         addDoneButtonOnKeyboard(to: playerNameField)
-        
-        
+    
     }
 
     func addDoneButtonOnKeyboard(to textField: UITextField) {
@@ -45,18 +41,16 @@ class StartViewController: UIViewController {
     }
     
     func showAlert() {
-        // Skapa en alert controller med titel och meddelande
+        
         let alertController = UIAlertController(title: "Ange spelarnamn", message: "Du måste ange ett namn för att kunna spela", preferredStyle: .alert)
         
-        // Skapa en åtgärd för alert kontrollern
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
             
         }
-        
-        // Lägg till åtgärden till alert kontrollern
+       
         alertController.addAction(okAction)
         
-        // Presentera alert kontrollern
+        
         self.present(alertController, animated: true, completion: nil)
     }
     

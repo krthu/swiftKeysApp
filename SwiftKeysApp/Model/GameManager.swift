@@ -9,13 +9,6 @@
 import Foundation
 
 class GameManager{
-//    private let words = [
-//        "boll", "hund", "katt", "bok", "hus", "näsa", "bär", "fisk", "mjölk", "axel",
-//        "öra", "peng", "klubb", "väska", "klocka", "hjul", "damm", "lejon", "skor", "vägg",
-//        "penna", "lampa", "glass", "sol", "fluga", "ring", "snö", "päls", "gräs", "stol",
-//        "fot", "våg", "häst", "hand", "båt", "bil", "hatt", "spik", "bana", "sax", "ögon",
-//        "träd", "måne", "horn", "mun", "sten", "näbb", "hjärta", "lock", "väv"
-//    ]
     
     private var wordToType: String?
     
@@ -27,16 +20,6 @@ class GameManager{
     private var wordGenerator = WordGenerator()
     
     
-    //    func getRandomWord() -> String?{
-    //
-    //        if wordsDone == wordsInGame {
-    //            return nil
-    //        }
-    //        let word = words.randomElement()
-    //        wordToType = word
-    //        wordsDone += 1
-    //        return wordToType
-    //    }
     
     func getRandomWord() -> String? {
         if wordsDone == wordsInGame {
@@ -95,11 +78,6 @@ class GameManager{
         activePlayer = player
     }
     
-//    func addScore(scoreToAdd: Int){
-//        activePlayer?.changeScore(with: scoreToAdd)
-//        
-//        
-//    }
     func resetGame(){
         activePlayer?.score = 0
         wordsDone = 0
